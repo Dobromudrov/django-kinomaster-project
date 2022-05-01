@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for movie in movie_list%}
+    <p>{{ movie.title}}</p>
+{% if movie.poster %}
+    <p style="text-align: right; height: 520px;"><img src="{{ movie.poster.url }}"></p>
+
+{% endif %}
+{% endfor %}
+</body>
+</html>
