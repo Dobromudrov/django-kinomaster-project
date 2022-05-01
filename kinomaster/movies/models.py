@@ -15,19 +15,30 @@ class Category(models.Model):
         verbose_name_plural = "Категории"
 
 
-class ActorsDirectors(models.Model):
-    """Актёры и режиссёры"""
+class Actors(models.Model):
+    """Актёры"""
     name = models.CharField("Имя", max_length=100)
-    age = models.PositiveSmallIntegerField("Возраст", default=0)
-    description = models.TextField("Описание")
-    image = models.ImageField("Изображение", upload_to='actorsdirectors/')
+    url = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = "Актёры и режиссёры"
-        verbose_name_plural = "Актёры и режиссёры"
+        verbose_name = "Актёры"
+        verbose_name_plural = "Актёры"
+
+
+class Directors(models.Model):
+    """Режиссёры"""
+    name = models.CharField("Имя", max_length=100)
+    url = models.SlugField(max_length=160, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Режиссёры"
+        verbose_name_plural = "Режиссёры"
 
 
 class Genre(models.Model):
@@ -51,8 +62,8 @@ class Movies(models.Model):
     category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.SET_NULL, null=True)
     genres = models.ManyToManyField(Genre, verbose_name="Жанры")
     time_movies = models.PositiveSmallIntegerField("Продолжительность", default=120)
-    directors = models.ManyToManyField(ActorsDirectors, verbose_name="Режиссёр", related_name="film_director")
-    actors = models.ManyToManyField(ActorsDirectors, verbose_name="Актёры", related_name="film_actor")
+    directors = models.ManyToManyField(Directors, verbose_name="Режиссёр", related_name="film_director")
+    actors = models.ManyToManyField(Actors, verbose_name="Актёры", related_name="film_actor")
     description = models.TextField("Описание")
     url = models.SlugField(max_length=160, unique=True)
     draft = models.BooleanField("Черновик", default=False)
