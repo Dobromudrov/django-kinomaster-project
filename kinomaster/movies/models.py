@@ -54,7 +54,7 @@ class Genre(models.Model):
         verbose_name_plural = "Жанры"
 
 
-class Movies(models.Model):
+class Movie(models.Model):
     title = models.CharField("Название", max_length=100)
     poster = models.ImageField("Постер", upload_to="movies/")
     year = models.PositiveSmallIntegerField("Дата выхода", default=2022)
@@ -62,7 +62,7 @@ class Movies(models.Model):
     category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.SET_NULL, null=True)
     genres = models.ManyToManyField(Genre, verbose_name="Жанры")
     time_movies = models.PositiveSmallIntegerField("Продолжительность", default=120)
-    directors = models.ManyToManyField(Directors, verbose_name="Режиссёр", related_name="film_director")
+    directors = models.ForeignKey(Directors, verbose_name="Режиссёр", on_delete=models.CASCADE, null=True)
     actors = models.ManyToManyField(Actors, verbose_name="Актёры", related_name="film_actor")
     description = models.TextField("Описание")
     url = models.SlugField(max_length=160, unique=True)
@@ -92,7 +92,7 @@ class Rating(models.Model):
     """Рейтинг"""
     ip = models.CharField("IP адрес", max_length=15)
     star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="Звезда")
-    movie = models.ForeignKey(Movies, on_delete=models.CASCADE, verbose_name="Фильм")
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, verbose_name="Фильм")
 
     def __str__(self):
         return f"{self.star} - {self.movie}"
@@ -106,7 +106,7 @@ class Reviews(models.Model):
     """Отзыв"""
     name = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField("Сообщение", max_length=500)
-    movie = models.ForeignKey(Movies, verbose_name="Фильм", on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, verbose_name="Фильм", on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name} - {self.movie}"
