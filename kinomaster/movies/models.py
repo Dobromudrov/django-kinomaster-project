@@ -108,7 +108,8 @@ class Rating(models.Model):
 
 class Reviews(models.Model):
     """Отзыв"""
-    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField("Имя", max_length=100)
+    # name = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField("Сообщение", max_length=500)
     movie = models.ForeignKey(Movie, verbose_name="Фильм", on_delete=models.CASCADE)
 
