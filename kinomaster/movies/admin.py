@@ -2,6 +2,10 @@ from django.contrib import admin
 from .models import *
 
 
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"url": ("name",)}
+
+
 class ReviewsAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'movie', 'time_create')
     list_display_links = ('name', 'movie')
@@ -24,7 +28,7 @@ class MovieAdmin(admin.ModelAdmin):
     prepopulated_fields = {"url": ("title",)}
 
 
-admin.site.register(Category)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Actors, ActorsAdmin)
 admin.site.register(Directors, DirectorsAdmin)
 admin.site.register(Genre, GenreAdmin)
