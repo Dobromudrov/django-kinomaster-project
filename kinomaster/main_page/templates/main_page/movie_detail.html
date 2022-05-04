@@ -1,5 +1,5 @@
 {% extends 'main_page/base.html' %}
-
+{% load static %}
 {% block title %} {{ movie.title }} {% endblock title %}
 {% block container %}
     <div class="container py-md-3">
@@ -100,7 +100,7 @@
                     <div class="row sub-para-w3layouts mt-5">
 
                         <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
-                            О фильме {{ movie.title }}</h3>
+                            О фильме "{{ movie.title }}"</h3>
                         <p class="editContent" style="outline: none; cursor: inherit;">
                             {{ movie.description | linebreaks }}
                         </p>
@@ -159,7 +159,7 @@
                         </div>
                     {% for review in movie.reviews_set.all %}
                         <div class="media py-5">
-                            <img src="bundles/images/te2.jpg" class="mr-3 img-fluid" alt="image">
+                            <img src="{% static 'images/ico.png' %}" class="mr-3 img-fluid" alt="image">
                             <div class="media-body mt-4">
                                 <h5 class="mt-0 editContent">
                                     {{ review.name }}
