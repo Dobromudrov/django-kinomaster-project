@@ -108,10 +108,11 @@ class Rating(models.Model):
 
 class Reviews(models.Model):
     """Отзыв"""
-    name = models.CharField("Имя", max_length=100)
+    name = models.CharField("Пользователь", max_length=20)
     # name = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField("Сообщение", max_length=500)
-    movie = models.ForeignKey(Movie, verbose_name="Фильм", on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, verbose_name="Отзыв на Фильм", on_delete=models.CASCADE)
+    time_create = models.DateTimeField(auto_now_add=True, null=True, verbose_name='Создан')
 
     def __str__(self):
         return f"{self.name} - {self.movie}"
@@ -119,5 +120,4 @@ class Reviews(models.Model):
     class Meta:
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзыв"
-
-    ordering = ['-time_create']
+        ordering = ['-time_create', 'name']
