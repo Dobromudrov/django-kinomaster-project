@@ -12,12 +12,23 @@ class ActorsAdmin(admin.ModelAdmin):
     prepopulated_fields = {"url": ("name",)}
 
 
+class DirectorsAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"url": ("name",)}
+
+
+class GenreAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"url": ("name",)}
+
+
+class MovieAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"url": ("title",)}
+
 
 admin.site.register(Category)
 admin.site.register(Actors, ActorsAdmin)
-admin.site.register(Directors)
-admin.site.register(Genre)
-admin.site.register(Movie)
+admin.site.register(Directors, DirectorsAdmin)
+admin.site.register(Genre, GenreAdmin)
+admin.site.register(Movie, MovieAdmin)
 admin.site.register(RatingStar)
 admin.site.register(Rating)
 admin.site.register(Reviews, ReviewsAdmin)
