@@ -102,18 +102,19 @@
                         <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
                             О фильме "{{ movie.title }}"</h3>
                         <p class="editContent" style="outline: none; cursor: inherit;">
-                            {{ movie.description | linebreaks }}
+                            {{ movie.description | safe }}
+<!--                            {{ movie.description | linebreaks }}-->
                         </p>
-                        <p class="mt-3 italic-blue editContent"
-                           style="outline: none; cursor: inherit;">
-                            <iframe width="560" height="315"
-                                    src="https://www.youtube.com/embed/A36LahZNUiE?controls=0"
-                                    frameborder="0" allow="accelerometer; autoplay;
-                                                                           encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen>
+<!--                        <p class="mt-3 italic-blue editContent"-->
+<!--                           style="outline: none; cursor: inherit;">-->
+<!--                            <iframe width="560" height="315"-->
+<!--                                    src="https://www.youtube.com/embed/A36LahZNUiE?controls=0"-->
+<!--                                    frameborder="0" allow="accelerometer; autoplay;-->
+<!--                                                                           encrypted-media; gyroscope; picture-in-picture"-->
+<!--                                    allowfullscreen>-->
 
-                            </iframe>
-                        </p>
+<!--                            </iframe>-->
+<!--                        </p>-->
                     </div>
                     <hr>
                     <div class="row">
