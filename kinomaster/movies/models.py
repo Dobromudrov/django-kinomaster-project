@@ -53,6 +53,7 @@ class Genre(models.Model):
     class Meta:
         verbose_name = "Жанр"
         verbose_name_plural = "Жанры"
+        ordering = ['name']
 
 
 class Movie(models.Model):
@@ -62,12 +63,14 @@ class Movie(models.Model):
     country = models.CharField("Страна", max_length=30)
     category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.SET_NULL, null=True)
     genres = models.ManyToManyField(Genre, verbose_name="Жанры")
-    time_movies = models.PositiveSmallIntegerField("Продолжительность", default=120)
+    time_movies = models.PositiveSmallIntegerField("Продолжительность (мин)", default=120)
     directors = models.ForeignKey(Directors, verbose_name="Режиссёр", on_delete=models.CASCADE, null=True)
     actors = models.ManyToManyField(Actors, verbose_name="Актёры", related_name="film_actor")
     description = models.TextField("Описание")
     url = models.SlugField(max_length=160, unique=True)
     draft = models.BooleanField("Черновик", default=False)
+    time_create = models.DateTimeField(auto_now_add=True, null=True, verbose_name='Создано')
+    time_update = models.DateTimeField(auto_now=True, null=True, verbose_name='Обновлено')
 
     def __str__(self):
         return self.title
@@ -75,6 +78,7 @@ class Movie(models.Model):
     class Meta:
         verbose_name = "Фильм"
         verbose_name_plural = "Фильмы"
+        ordering = ['-time_create', 'title']
 
     def get_absolute_url(self):
         return reverse("movie_detail", kwargs={"slug": self.url})
