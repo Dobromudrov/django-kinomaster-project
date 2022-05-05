@@ -30,7 +30,7 @@
                                     <span><b>Режиссер:</b>{{ movie.directors }}</span></li>
                                 <li style="list-style: none"><span><b>Актеры:</b>
                                     {% for actor in movie.actors.all %}
-                                        {{ actor.name }}
+                                        {{ actor.name }} ,
                                     {% endfor %}
                                 </span>
                                 </li>

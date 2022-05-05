@@ -27,6 +27,7 @@ class Actors(models.Model):
     class Meta:
         verbose_name = "Актёры"
         verbose_name_plural = "Актёры"
+        # ordering = ["name"]
 
 
 class Directors(models.Model):
@@ -40,6 +41,7 @@ class Directors(models.Model):
     class Meta:
         verbose_name = "Режиссёры"
         verbose_name_plural = "Режиссёры"
+        ordering = ["name"]
 
 
 class Genre(models.Model):

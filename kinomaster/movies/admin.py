@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
+
 from .models import *
 
 
@@ -9,13 +11,15 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Actors)
 class ActorsAdmin(admin.ModelAdmin):
-    list_display = ('name', 'url')
+    list_display = ("name", "url")
     prepopulated_fields = {"url": ("name",)}
+    search_fields = ("name",)
 
 
 @admin.register(Directors)
 class DirectorsAdmin(admin.ModelAdmin):
     prepopulated_fields = {"url": ("name",)}
+    search_fields = ("name",)
 
 
 @admin.register(Genre)
@@ -32,7 +36,7 @@ class ReviewInline(admin.TabularInline):
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ("title", "category", "year", "time_movies", "draft", "time_create", "time_update")
+    list_display = ("title", "category", "year", "time_movies", "get_poster", "draft", "time_create", "time_update")
     prepopulated_fields = {"url": ("title",)}
     list_filter = ("category", "year",)
     search_fields = ("title", "category__name")
@@ -57,24 +61,16 @@ class MovieAdmin(admin.ModelAdmin):
             "fields": (("description",), )
         }),
         (None, {
-            "fields": (("poster",), )
+            "fields": (("poster", ), )
         }),
     )
     inlines = [ReviewInline]
     save_on_top = True
 
-    # title = models.CharField("Название", max_length=100)
-    # poster = models.ImageField("Постер", upload_to="movies/")
-    # year = models.PositiveSmallIntegerField("Дата выхода", default=2022)
-    # country = models.CharField("Страна", max_length=30)
-    # category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.SET_NULL, null=True)
-    # genres = models.ManyToManyField(Genre, verbose_name="Жанры")
-    # time_movies = models.PositiveSmallIntegerField("Продолжительность (мин)", default=120)
-    # directors = models.ForeignKey(Directors, verbose_name="Режиссёр", on_delete=models.CASCADE, null=True)
-    # actors = models.ManyToManyField(Actors, verbose_name="Актёры", related_name="film_actor")
-    # description = models.TextField("Описание")
-    # url = models.SlugField(max_length=160, unique=True)
-    # draft = models.BooleanField("Черновик", default=False)
+    def get_poster(self, obj):
+        return mark_safe(f'<img src={obj.poster.url} width="50 height="60"')
+
+    get_poster.short_description = "Изображение"
 
 
 @admin.register(RatingStar)
@@ -91,7 +87,7 @@ class RatingAdmin(admin.ModelAdmin):
 class ReviewsAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "movie", "time_create")
     list_display_links = ("movie",)
-    readonly_fields = ("name",)
+    readonly_fields = ("name", "movie", "text")
 
 
 
@@ -103,3 +99,6 @@ class ReviewsAdmin(admin.ModelAdmin):
 #     prepopulated_fields = {"slug": ("title",)}
 
 # admin.site.register(CarsTable, CarsTableAdmin)
+
+admin.site.site_title = "Кабинет Разработчика [KinoMaster]"
+admin.site.site_header = "Кабинет Разработчика [KinoMaster]"
