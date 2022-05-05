@@ -2,40 +2,47 @@ from django.contrib import admin
 from .models import *
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"url": ("name",)}
 
 
-class ReviewsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'movie', 'time_create')
-    list_display_links = ('name', 'movie')
-
-
+@admin.register(Actors)
 class ActorsAdmin(admin.ModelAdmin):
     list_display = ('name', 'url')
     prepopulated_fields = {"url": ("name",)}
 
 
+@admin.register(Directors)
 class DirectorsAdmin(admin.ModelAdmin):
     prepopulated_fields = {"url": ("name",)}
 
 
+@admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
     prepopulated_fields = {"url": ("name",)}
 
 
+@admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     prepopulated_fields = {"url": ("title",)}
 
 
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Actors, ActorsAdmin)
-admin.site.register(Directors, DirectorsAdmin)
-admin.site.register(Genre, GenreAdmin)
-admin.site.register(Movie, MovieAdmin)
-admin.site.register(RatingStar)
-admin.site.register(Rating)
-admin.site.register(Reviews, ReviewsAdmin)
+@admin.register(RatingStar)
+class RatingStarAdmin(admin.ModelAdmin):
+    list_display = ('value',)
+
+
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ('ip', 'star', 'movie')
+
+
+@admin.register(Reviews)
+class ReviewsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'movie', 'time_create')
+    list_display_links = ('name', 'movie')
+
 
 # class CarsTableAdmin(admin.ModelAdmin):
 #     list_display = ('id', 'title', 'cat', 'is_published', 'price', 'photo', 'time_create', 'time_update', 'slug')
