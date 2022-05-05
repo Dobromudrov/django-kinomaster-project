@@ -36,11 +36,12 @@ class ReviewInline(admin.TabularInline):
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ("title", "category", "year", "time_movies", "get_poster", "draft", "time_create", "time_update")
+    list_display = ("title", "category", "year", "time_movies", "get_poster", "time_create", "time_update", "draft")
     prepopulated_fields = {"url": ("title",)}
     list_filter = ("category", "year",)
     search_fields = ("title", "category__name")
     list_editable = ("draft",)
+    readonly_fields = ("get_poster",)
     fieldsets = (
         (None, {
             "fields": (("title", "url", "draft"), )
@@ -61,14 +62,14 @@ class MovieAdmin(admin.ModelAdmin):
             "fields": (("description",), )
         }),
         (None, {
-            "fields": (("poster", ), )
+            "fields": (("poster", "get_poster" ), )
         }),
     )
     inlines = [ReviewInline]
     save_on_top = True
 
     def get_poster(self, obj):
-        return mark_safe(f'<img src={obj.poster.url} width="50 height="60"')
+        return mark_safe(f'<img src={obj.poster.url} width="90 height="80"')
 
     get_poster.short_description = "Изображение"
 
