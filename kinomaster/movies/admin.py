@@ -48,7 +48,7 @@ class ReviewInline(admin.TabularInline):
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     list_display = ("title", "category", "year", "time_movies", "get_poster", "time_create", "time_update", "draft")
-    prepopulated_fields = {"url": ("title",)}
+    prepopulated_fields = {"url": ("title", "year")}
     list_filter = ("category", "year",)
     search_fields = ("title", "category__name")
     list_editable = ("draft",)
