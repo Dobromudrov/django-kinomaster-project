@@ -90,15 +90,5 @@ class ReviewsAdmin(admin.ModelAdmin):
     readonly_fields = ("name", "movie", "text")
 
 
-
-# class CarsTableAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'title', 'cat', 'is_published', 'price', 'photo', 'time_create', 'time_update', 'slug')
-#     list_display_links = ('id', 'title', 'cat')
-#     search_fields = ('id', 'title',)
-#     list_editable = ('is_published', 'price')
-#     prepopulated_fields = {"slug": ("title",)}
-
-# admin.site.register(CarsTable, CarsTableAdmin)
-
 admin.site.site_title = "Кабинет Разработчика [KinoMaster]"
 admin.site.site_header = "Кабинет Разработчика [KinoMaster]"
