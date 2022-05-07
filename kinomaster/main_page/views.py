@@ -6,14 +6,22 @@ from movies.models import *
 from .forms import *
 
 
-class IndexPage(ListView):
+class GenreYear:
+    def get_genres(self):
+        return Genre.objects.all()
+
+    def get_years(self):
+        return Movie.objects.filter(draft=False).values("year")
+
+
+class IndexPage(GenreYear, ListView):
     """Main page with movies"""
     model = Movie
     queryset = Movie.objects.filter(draft=False)
     template_name = "main_page/index.html"
 
 
-class MovieDetail(DetailView):
+class MovieDetail(GenreYear, DetailView):
     """Full description of movies"""
     model = Movie
     slug_field = "url"
@@ -36,3 +44,11 @@ class AddReview(View):
             form.save()
         # print(request.POST)
         return redirect(movie.get_absolute_url())
+
+
+class FilterMoviesView(ListView):
+    template_name = "main_page/index.html"
+
+    def get_queryset(self):
+        queryset = Movie.objects.filter(year__in=self.request.GET.getlist("year"))
+        return queryset
