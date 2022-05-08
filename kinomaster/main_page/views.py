@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
@@ -46,9 +47,12 @@ class AddReview(View):
         return redirect(movie.get_absolute_url())
 
 
-class FilterMoviesView(ListView):
+class FilterMoviesView(GenreYear, ListView):
     template_name = "main_page/index.html"
 
     def get_queryset(self):
-        queryset = Movie.objects.filter(year__in=self.request.GET.getlist("year"))
+        queryset = Movie.objects.filter(
+            Q(year__in=self.request.GET.getlist("year")) |
+            Q(genres__in=self.request.GET.getlist("genre"))
+        )
         return queryset
