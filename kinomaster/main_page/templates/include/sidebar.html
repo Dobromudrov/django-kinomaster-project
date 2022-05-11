@@ -22,17 +22,19 @@
     </div>
     <!-- // preference -->
     <!-- discounts -->
-    <div class="left-side">
-        <h3 class="sear-head editContent">Год</h3>
-        <ul class="w3layouts-box-list">
-            {% for movie in view.get_years %}
-            <li class="editContent">
-                <input type="checkbox" class="checked" name="year" value="{{ movie.year }}">
-                <span class="span editContent">{{ movie.year }}</span>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+
+
+<!--    <div class="left-side">-->
+<!--        <h3 class="sear-head editContent">Год</h3>-->
+<!--        <ul class="w3layouts-box-list">-->
+<!--            {% for movie in view.get_years %}-->
+<!--            <li class="editContent">-->
+<!--                <input type="checkbox" class="checked" name="year" value="{{ movie.year }}">-->
+<!--                <span class="span editContent">{{ movie.year }}</span>-->
+<!--            </li>-->
+<!--            {% endfor %}-->
+<!--        </ul>-->
+<!--    </div>-->
     <button type="submit">Найти</button>
 </form>
 <!-- //discounts -->
